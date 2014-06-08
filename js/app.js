@@ -39,8 +39,9 @@ $(document).ready(function() {
                                         console.log(data);
                                         $.each(data, function() {
                                             var commit_url = this['html_url'];
+                                            var commit_message = this['commit'].message;
                                             var commit_date = this['commit'].committer.date;
-                                            $('#githubContent').append('<div><a href="' + commit_url + '">' + commit_url + '</a></div>&nbsp;ON&nbsp;<div>' + commit_date + '</div>');
+                                            $('#githubContent').append('<div><a href="' + commit_url + '">' + commit_message + '</a></div>&nbsp;PUSHED ON&nbsp;<div>' + commit_date + '</div>');
                                             return false;
                                         });
                                     },

@@ -31,7 +31,7 @@ $(document).ready(function() {
                                 var firstCommitDate = this['pushed_at'];
                                 $('#githubContent').append('<div><a href="' + this['html_url'] + '">' + this['full_name'] + '</a></div>');
                                 $.ajax({
-                                    url: "https://api.github.com/repos/" + githubRepo + "/commits?author='"+githubUserName+"'",
+                                    url: "https://api.github.com/repos/" + githubRepo + "/commits?author:'"+githubUserName+"'",
                                     type: "get",
                                     dataType: 'json',
                                     success: function(data) {

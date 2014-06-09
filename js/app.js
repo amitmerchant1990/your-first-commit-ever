@@ -1,8 +1,8 @@
 /*!
-	your-first-commit-ever
-	(c) 2014 Amit Merchant
-	license: GNU LESSER GENERAL PUBLIC LICENSE
-	https://github.com/amitmerchant1990/your-first-commit-ever
+    your-first-commit-ever
+    (c) 2014 Amit Merchant
+    license: GNU LESSER GENERAL PUBLIC LICENSE
+    https://github.com/amitmerchant1990/your-first-commit-ever
 */
 
 $(document).ready(function() {
@@ -31,7 +31,7 @@ $(document).ready(function() {
                                 var firstCommitDate = this['pushed_at'];
                                 $('#githubContent').append('<div><a href="' + this['html_url'] + '">' + this['full_name'] + '</a></div>');
                                 $.ajax({
-                                    url: "https://api.github.com/repos/" + githubRepo + "/commits",
+                                    url: "https://api.github.com/repos/" + githubRepo + "/commits?author="+githubUserName,
                                     type: "get",
                                     dataType: 'json',
                                     success: function(data) {

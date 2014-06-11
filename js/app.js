@@ -1,7 +1,7 @@
 /*!
     your-first-commit-ever
     (c) 2014 Amit Merchant
-    license: GNU LESSER GENERAL PUBLIC LICENSE
+    license: GENERAL PUBLIC LICENSE
     https://github.com/amitmerchant1990/your-first-commit-ever
 */
 

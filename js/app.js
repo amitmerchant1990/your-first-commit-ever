@@ -60,7 +60,6 @@ $(document).ready(function() {
                     $("#githubContent").html('<div><b>No GitHub user available using this username.</b></div>');
                 }
             });
-            //alert("test:"+githubRepo);
         }
     });
 });

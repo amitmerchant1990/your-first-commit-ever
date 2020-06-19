@@ -1,65 +1,71 @@
 /*!
     your-first-commit-ever
-    (c) 2014 Amit Merchant
+    (c) 2020 Amit Merchant <bullredeyes@gmail.com>
     license: GENERAL PUBLIC LICENSE
     https://github.com/amitmerchant1990/your-first-commit-ever
 */
 
-$(document).ready(function() {
+$(document).ready(function () {
+    let params = (new URL(document.location)).searchParams;
+    let user = params.get('user');
+
+    if (user != null) {
+        fetchUserCommits(user);
+        $('#githubUserName').val(user);
+    }
+
     $('#githubUserName').focus();
-    $('#githubUserName').bind('keypress',function(e) {
-        var githubUserName = $('#githubUserName').val();
-        
-        if (e.keyCode==13 && githubUserName != '') {
-            $.ajax({
-                url: "https://api.github.com/users/" + githubUserName,
-                type: "get",
-                dataType: 'json',
-                success: function(data) {
-                    $('#githubContent').empty();
-                    $('#githubContent').html('<div><b>GitHub Username:' + data.login + '</b></div><div><img src="' + data.avatar_url + '" height="100" width="100"></div><div><b>GitHub Name:' + data.name + '</b></div>');
+    $('#githubUserName').bind('keypress', function (e) {
+        let githubUserName = $('#githubUserName').val();
 
-                    var githubRepo;
-
-                    $.ajax({
-                        url: "https://api.github.com/users/" + githubUserName + "/repos?sort=created&direction=asc&per_page=1",
-                        type: "get",
-                        dataType: 'json',
-                        success: function(data) {
-                            $.each(data, function() {
-                                githubRepo = this['full_name'];
-                                var firstCommitDate = this['pushed_at'];
-                                $('#githubContent').append('<div><a href="' + this['html_url'] + '">' + this['full_name'] + '</a></div>');
-                                $.ajax({
-                                    url: "https://api.github.com/repos/" + githubRepo + "/commits",
-                                    type: "get",
-                                    dataType: 'json',
-                                    success: function(data) {
-                                        data = data.reverse();
-                                        console.log(data);
-                                        $.each(data, function() {
-                                            var commit_url = this['html_url'];
-                                            var commit_message = this['commit'].message;
-                                            var commit_date = this['commit'].committer.date;
-                                            $('#githubContent').append('<div><a href="' + commit_url + '">' + commit_message + '</a></div>&nbsp;PUSHED ON&nbsp;<div>' + commit_date + '</div>');
-                                            return false;
-                                        });
-                                    },
-                                    error: function() {
-                                        alert("failure");
-                                    }
-                                });
-                            });
-                        },
-                        error: function() {
-                            alert("failure");
-                        }
-                    });
-                },
-                error: function() {
-                    $("#githubContent").html('<div><b>No GitHub user available using this username.</b></div>');
-                }
-            });
-        }
+        if (e.keyCode == 13 && githubUserName != '') {
+            fetchUserCommits(githubUserName);
+            var searchParams = new URLSearchParams(window.location.search);
+            searchParams.set("user", githubUserName);
+            window.location.search = searchParams.toString();
+        } 
     });
+
+    function fetchUserCommits(user) {
+        $.ajax({
+            url: "https://api.github.com/search/commits?q=author:"+user+"&order=asc&sort=committer-date",
+            type: "get",
+            headers: {
+                'Accept': 'application/vnd.github.cloak-preview'
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#githubContent').empty();
+
+                let date = new Date(data.items[0].commit.committer.date);
+
+                let html = 
+                `<div class="flex-left">
+                    <img src="${data.items[0].author.avatar_url}" class="img-responsive">
+                </div>
+                <div class="flex-right">
+                    <div class="greetings">
+                        <b>Hey, <a href="${data.items[0].committer.html_url}">${data.items[0].commit.author.name}</a></b>
+                    </div>
+                    <div>
+                        <p>Here's your first ever commit on GitHub: <a href="${data.items[0].html_url}">${data.items[0].commit.message}</a></p>  
+                    </div>
+                    <div>
+                        <p>That you have committed in <a href="https://github.com/${data.items[0].repository.full_name}">${data.items[0].repository.full_name}</a></p>
+                    </div>
+                    <div>
+                        <p>On <i>${date.toString()}</i></p>
+                    </div>
+                    <div>
+                        <p>Cheers! 🍻</p>
+                    </div>
+                </div>`;
+
+                $('#githubContent').html(html).css('background-color', 'white');
+            },
+            error: function () {
+                $("#githubContent").html('<div class="no-user"><p><i>No GitHub user available of this username.</i></p></div>');
+            }
+        });
+    }
 });

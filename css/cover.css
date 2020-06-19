@@ -155,10 +155,72 @@ body {
   }
 }
 
+#githubContent {
+  display: flex;
+  padding: 15px;
+  border-radius: 5px;
+  color: black;
+  text-shadow: none;
+  flex-direction: row;
+}
+
+.flex-left {
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+.flex-left img {
+  border-radius: 5px;
+}
+
+.flex-right {
+  text-align: left;
+}
+
+.flex-right a {
+  color: blue;
+  text-shadow: none;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.greetings {
+  font-size: 25px !important;
+  padding-bottom: 10px;
+}
+
+.greetings a {
+  font-size: 25px !important;
+  color: black;
+  text-shadow: none;
+}
+
+.flex-right p {
+  font-size: 16px;
+  color: #333;
+}
+
 @media (min-width: 992px) {
   .masthead,
   .mastfoot,
   .cover-container {
     width: 700px;
+  }
+}
+
+.no-user {
+  color: white;
+}
+
+@media (max-width: 480px) {
+  #githubContent {
+    flex-direction: column;
+  }
+
+  .flex-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 0;
   }
 }

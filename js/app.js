@@ -20,15 +20,15 @@ $(document).ready(function () {
 
         if (e.keyCode == 13 && githubUserName != '') {
             fetchUserCommits(githubUserName);
-            var searchParams = new URLSearchParams(window.location.search);
+            let searchParams = new URLSearchParams(window.location.search);
             searchParams.set("user", githubUserName);
             window.location.search = searchParams.toString();
-        } 
+        }
     });
 
     function fetchUserCommits(user) {
         $.ajax({
-            url: "https://api.github.com/search/commits?q=author:"+user+"&order=asc&sort=committer-date",
+            url: "https://api.github.com/search/commits?q=author:" + user + "&order=asc&sort=committer-date",
             type: "get",
             headers: {
                 'Accept': 'application/vnd.github.cloak-preview'
@@ -39,8 +39,8 @@ $(document).ready(function () {
 
                 let date = new Date(data.items[0].commit.committer.date);
 
-                let html = 
-                `<div class="flex-left">
+                let html =
+                    `<div class="flex-left">
                     <img src="${data.items[0].author.avatar_url}" class="img-responsive">
                 </div>
                 <div class="flex-right">

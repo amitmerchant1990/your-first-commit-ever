@@ -1,4 +1,4 @@
-your-first-commit-ever
+Revisit Your First Commit Ever
 ======================
 
 Look back to your first footprints on GitHub. :blush:

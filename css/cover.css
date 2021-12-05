@@ -6,6 +6,16 @@
 */
 
 /* Links */
+@font-face {
+  font-family: AGENTRED;
+  src: url(../fonts/AGENTRED.TTF);
+}
+
+.hero-title {
+  font-family: AGENTRED;
+  line-height: 2.1;
+}
+
 a,
 a:focus,
 a:hover {
@@ -57,7 +67,7 @@ body {
 
 /* Padding for spacing */
 .inner {
-  padding: 30px;
+  padding: 15px;
 }
 
 

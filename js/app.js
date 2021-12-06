@@ -64,7 +64,7 @@ $(document).ready(function () {
                 $('#githubContent').html(html).css('background-color', 'white');
             },
             error: function () {
-                $("#githubContent").html('<div class="no-user"><p><i>No GitHub user available of this username.</i></p></div>');
+                $("#githubContent").html('<div class="no-user"><p><i>No GitHub user is not available of this username.</i></p></div>');
             }
         });
     }

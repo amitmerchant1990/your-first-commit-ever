@@ -36,7 +36,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 $('#githubContent').empty();
-
+                console.log(data);
                 let date = new Date(data.items[0].commit.committer.date);
 
                 let html =
@@ -64,7 +64,7 @@ $(document).ready(function () {
                 $('#githubContent').html(html).css('background-color', 'white');
             },
             error: function () {
-                $("#githubContent").html('<div class="no-user"><p><i>No GitHub user is not available of this username.</i></p></div>');
+                $("#githubContent").html('<div class="no-user"><p><i>No GitHub user is available of this username.</i></p></div>');
             }
         });
     }
